@@ -1,0 +1,40 @@
+atributo:- read(X), write('"'), write(X), write('":'),tipoatributo(X). 
+tipoatributo(M):- read(X), (X='metodo'->metodo(M); b1(X)).
+b1(X):- X='numero'->numero; b2(X).
+b2(X):- X='cadena'->cadena;write('error').
+cadena:- read(X), write('"'), write(X), write('",').
+numero:-read(X), write(X).
+metodo(M):- write('"function() {'),a2,write(' return '), write(M), write(';}"').
+a2:- read(X), (X='decision'->decision;a3(X)).
+a3(X):- X='asignacion' -> asignacion;(nl,nl,nl,write('ERROR AL INGRESAR: '),write(X),nl,nl,nl).
+asignacion:- read(X), write(X), write('='), read(Y), write(Y), write(';').
+decision:- write('if('),condicion,aux,write(')'), aux1, verdadero.
+condicion:-read(X), write(X).
+verdadero:- write('{'),a2,write('}').
+falso:- write('{'),a2,write('}').
+
+/* Codigo Nuevo */
+aux:- read(X), (X='and'->au; aq(X)).
+au:- write(' && a>0').
+aq(X):- X='or'-> write(' OR a=0'); na(X).
+na(X):- X='na'->write('');write('error').
+
+aux1:- read(X), (X='e_s'->au1; aq1(X)).
+au1:- write(' (else b>c) ').
+aq1(X):- X='e_n'-> write(''); write('error').
+
+:- atributo.
+
+a1. 
+metodo.
+decision.
+a<b.
+and.
+e_s.
+decision.
+a<c.
+or.
+e_s.
+asignacion.
+a.
+menor.
